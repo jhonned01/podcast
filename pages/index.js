@@ -1,65 +1,83 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
-export default function Home() {
+export default function Home({channels}) {
+
+
+console.log('====================================');
+console.log(channels);
+console.log('====================================');
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
+    <header>Podcasts</header>
+    <div className="channels">
+    {
+      channels.map((channel)=>(
+        <Link href="/channel">
+        <a className="channel">
+          <img src={channel.urls.logo_image.original} alt={channel.urls.logo_image.original}/>
+          <h2>{channel.title}</h2>          
         </a>
-      </footer>
+        </Link>
+      ))
+    }
     </div>
+
+  <style jsx>{`
+    header {
+      color: #fff;
+      background: #8756ca;
+      padding: 15px;
+    
+      text-align: center;
+    }
+    .channels {
+    display: grid;
+    grid-gap: 15px;
+    padding: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        }
+    .channel{
+      display: block;
+      border-radius; 3px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+      margin-bottom: 0.5em;
+    }
+
+    .channel img {
+      border-radius: 3px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+      width: 100%;
+    }
+
+   h2 {
+   padding: 5px;
+   font-size: 0.9em;
+   font-weight: 600;
+   margin: 0;
+   text-align: center;
+   }
+
+  `}</style>
+
+    <style jsx global>{`
+      body{
+        margin: 0;
+        background: white;
+        font-family: system-ui;
+
+      }
+      `}</style>
+    </div>
+  
   )
+}
+
+export async function getServerSideProps(){
+  const res= await fetch('https://api.audioboom.com/channels/recommended')
+  const { body: channels} = await res.json()
+
+  return { props: { channels: channels }}
 }
