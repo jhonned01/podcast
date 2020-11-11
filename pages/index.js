@@ -15,8 +15,8 @@ console.log('====================================');
     <div className="channels">
     {
       channels.map((channel)=>(
-        <Link href="/channel">
-        <a className="channel">
+        <Link href={`/channel?id=${channel.id}`}>
+        <a className="channel" key={channel.id}>
           <img src={channel.urls.logo_image.original} alt={channel.urls.logo_image.original}/>
           <h2>{channel.title}</h2>          
         </a>
