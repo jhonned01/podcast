@@ -1,15 +1,8 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-
-import Layout from '../components/Layout.jsx'
-import ShowChannel from '../components/ShowChannel.jsx'
+import Layout from '../components/Layout.js'
+import ShowChannel from '../components/ShowChannel.js'
 
 export default function Home({channels}) {
 
-
-console.log('====================================');
-console.log(channels);
-console.log('====================================');
   return (
   <Layout title="Podcasts">
    

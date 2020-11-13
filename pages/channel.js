@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Layout from '../components/Layout.jsx'
-import ShowPodcast from '../components/ShowPodcast.jsx'
+import Layout from '../components/Layout.js'
+import ShowPodcast from '../components/ShowPodcast.js'
 
 export default function channel(props) {
 
@@ -12,7 +12,7 @@ export default function channel(props) {
       <Layout title={channel.title}>
 
         <ShowPodcast channel={channel} audioClips={audioClips} series={series}/>
-        </Layout>
+      </Layout>
     )
 
 
