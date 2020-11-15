@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Layout from '../components/Layout.js'
-import ShowPodcast from '../components/ShowPodcast.js'
+import Layout from '../components/Layout.jsx'
+import ShowPodcast from '../components/ShowPodcast.jsx'
 
 export default function channel(props) {
 
