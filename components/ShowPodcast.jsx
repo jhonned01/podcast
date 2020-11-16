@@ -13,7 +13,7 @@ function ShowPodcast(props) {
             <h2>Series</h2>
             <div className="channels">
                 { props.series.map((serie) => (
-                <Link href={`/channel?id=${ serie.id }`} >
+                <Link key={serie.id} href={`/channel?id=${ serie.id }`} >
                     <a className="channel">
                     <h2>{ serie.title }</h2>
                     </a>

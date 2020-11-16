@@ -10,8 +10,8 @@ return (
    
    {
      props.channels.map((channel)=>(
-       <Link href={`/channel?id=${channel.id}`}>
-       <a className="channel" key={channel.id}>
+       <Link key={channel.id} href={`/channel?id=${channel.id}`}>
+       <a className="channel" >
          <img src={channel.urls.logo_image.original} alt={channel.urls.logo_image.original}/>
          <h2>{channel.title}</h2>          
        </a>
