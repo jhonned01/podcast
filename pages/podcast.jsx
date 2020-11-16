@@ -1,15 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
+import Error from 'next/error'
 
 export default function podcast(props) {
   const { clip, error } = props
   if(error){
-    return <div>error:{error}</div>
-    }else{
-
-
-    if (error) {
-    return <div>Error:{error}</div>
+    return <Error statusCode={error}/>
     }else{
       return (
           <div>
@@ -113,7 +109,7 @@ export default function podcast(props) {
     )
   }
   }
-}
+
 
 export async function getServerSideProps({query}){
 
@@ -126,13 +122,13 @@ export async function getServerSideProps({query}){
       return {props:{ clip }}
 
       }else{
-        const error=`informacion no disponible ${fetchClip.status}`
-        return {props:{error}}
+       
+     return {props:{clip:null,error:res.status}} 
       }
     
   } catch (err) {
-    const error=`informacion no disponible: ${err}`
+    const error=`${err}`
 
-    return {props:{error}}  }
+    return {props:{clip:null,error}}  }
     
 }

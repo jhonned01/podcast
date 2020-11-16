@@ -1,6 +1,7 @@
 import Layout from '../components/Layout.jsx'
 import ShowChannel from '../components/ShowChannel.jsx'
 import React from 'react'
+import Error from 'next/error'
 
 
 
@@ -8,7 +9,7 @@ export default function Home(props) {
   
 
  if(props.error){
-  return <div>error:{props.error}</div>
+  return <Error statusCode={props.error}/>
   }else{
   return (
     <Layout title="Podcasts">
@@ -31,15 +32,13 @@ export async function getServerSideProps(){
 
     return { props: { channels }} 
     
-  }else{
-    const error=`De canale no Diponible: ${res.status}`
-    return {props:{error}}
+  }else {
+    return { props: { channels:null,error:res.status }} 
   }
     
   } catch (err) {
-    const error=`informacion no disponible: ${err}`
-
-    return {props:{error}}
+   const error = `${err}`
+    return { props: { channels:null,error }} 
 
   }
 
