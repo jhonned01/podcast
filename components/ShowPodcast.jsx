@@ -1,41 +1,63 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Link from 'next/link'
+import PodCastPlayer from '../components/PodCastPlayer.jsx'
 
 function ShowPodcast(props) {
+  const [openPodcast,setOpenPodcast]=useState(null)
+  
+
+    
+const onClickPodcast=(event,podcast)=>{
+  event.preventDefault()
+
+  console.log('====================================');
+  console.log('hize click');
+  console.log('====================================');
+
+  setOpenPodcast(podcast)
+}  
+const ClosePodcast=(event)=>{
+  event.preventDefault()
+  setOpenPodcast(null)
+  }
     return (
         <div>
+         
             <div className="banner" style={{ backgroundImage: `url(${props.channel.urls.banner_image.original})` }} />
-
+            {
+              openPodcast && <div className='modal'>
+                <PodCastPlayer clip={openPodcast} onClose={ClosePodcast} /> 
+              </div>
+            }
             <h1>{ props.channel.title }</h1>
 
             { props.series.length > 0 &&
-            <div>
-            <h2>Series</h2>
-            <div className="channels">
-                { props.series.map((serie) => (
-                <Link key={serie.id} href={`/channel?id=${ serie.id }`} >
-                    <a className="channel">
-                    <h2>{ serie.title }</h2>
-                    </a>
-                </Link>
-                ))}
-            </div>
+              <div>
+              <h2>Series</h2>
+              <div className="channels">
+                  { props.series.map((serie) => (
+                  <Link key={serie.id} href={`/channel?id=${ serie.id }`} >
+                      <a className="channel">
+                      <h2>{ serie.title }</h2>
+                      </a>
+                  </Link>
+                  ))}
+              </div>
             </div>
             }
-
 
             <h2>ultimos Podcasts</h2>
 
             {
             props.audioClips.map((clip)=>(
-            <Link href={`/podcast?id=${clip.id}`} prefetch key={clip.id}>
-            <a className='podcast'>
-            <h3>{ clip.title }</h3>
-            <div className='meta'>
-                { Math.ceil(clip.duration / 60) } minutes
-            </div>
-            </a>
-            </Link>
+              <Link href={`/podcast?id=${clip.id}`} key={clip.id}>
+                <a className='podcast' onClick={(event) => onClickPodcast(event,podcast)}>
+                <h3>{ clip.title }</h3>
+                <div className='meta'>
+                    { Math.ceil(clip.duration / 60) } minutes
+                </div>
+                </a>
+              </Link>
             ))
             }
 
@@ -106,6 +128,17 @@ color: #666;
 margin-top: 0.5em;
 font-size: 0.8em;
 }
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  rigth: 0;
+  buttom: 0;
+   background: black;
+  z-index: 99999;
+ 
+  
+}
 `}</style>
 
 <style jsx global>{`
@@ -114,6 +147,7 @@ body {
   font-family: system-ui;
   background: white;
 }
+
 `}</style>
         </div>
     )

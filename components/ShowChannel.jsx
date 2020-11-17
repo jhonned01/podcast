@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 
 function ShowChannel(props) {
-    
+  
 
 return (
   <>
@@ -10,7 +10,7 @@ return (
    
    {
      props.channels.map((channel)=>(
-       <Link key={channel.id} href={`/channel?id=${channel.id}`}>
+       <Link  key={channel.id} href={`/channel?id=${channel.id}`} >
        <a className="channel" >
          <img src={channel.urls.logo_image.original} alt={channel.urls.logo_image.original}/>
          <h2>{channel.title}</h2>          

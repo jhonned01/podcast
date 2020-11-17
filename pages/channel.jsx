@@ -4,9 +4,14 @@ import Layout from '../components/Layout.jsx'
 import ShowPodcast from '../components/ShowPodcast.jsx'
 import Error from 'next/error'
 
+
+
 export default function channel(props) {
 
-      const {channel,audioClips,series,error}=props
+
+  const {channel,audioClips,series,error}=props
+
+      
     if (error) {
       
       return <Error statusCode={error}/>
@@ -14,6 +19,7 @@ export default function channel(props) {
 
     return (
       <Layout title={channel.title}>
+       
 
         <ShowPodcast channel={channel} audioClips={audioClips} series={series}/>
       </Layout>
